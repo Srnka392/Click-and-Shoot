@@ -10,7 +10,7 @@ export function gameOver(scene: Phaser.Scene): void {
     scene.data.get('changeTargetTimer').destroy();
     scene.time.clearPendingEvents();
     resetSpawnTimer(scene);
-    clearActiveTargets(scene);
+    clearActiveTargets(scene, ["activeTargets", "activeTargetsTimer"]);
 
     // Zobrazenie Game Over textu
     const gameOverText = scene.add.text(
@@ -65,7 +65,7 @@ function continueGame(scene: Phaser.Scene): void {
     });
     gameOverUI.forEach((uiElement) => uiElement.destroy());
 
-    clearActiveTargets(scene);
+    clearActiveTargets(scene, ["activeTargets", "activeTargetsTimer"]);
 
     // Obnovenie časovača
     scene.time.addEvent({

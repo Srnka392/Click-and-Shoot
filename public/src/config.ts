@@ -23,6 +23,7 @@ export const config: Phaser.Types.Core.GameConfig = {
       globalData.set("correctTargetID", "");
       globalData.set("correctTargetImage", "");
       globalData.set("activeTargets", []);
+      globalData.set("activeTargetsTimer", []);
       globalData.set("spawnTimer", null);
       globalData.set("isPaused", false);
       globalData.set("changeTargetTimer", null);

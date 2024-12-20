@@ -24,14 +24,16 @@ export function setNewCorrectTarget(scene: Phaser.Scene): number {
     return correctTargetID;
 }
 
-export function clearActiveTargets(scene: Phaser.Scene): void {
-    const activeTargets = scene.data.get('activeTargets');
-    activeTargets.forEach((target: Phaser.GameObjects.Sprite) => {
-        if (target && target.active) {
-            target.destroy();
-        }
-    });
-    scene.data.set('activeTargets', []);
+export function clearActiveTargets(scene: Phaser.Scene, dataItems: Array<"activeTargets" | "activeTargetsTimer">): void {
+    dataItems.forEach((dataItem) => {
+        const activeTargets = scene.data.get(dataItem);
+        activeTargets.forEach((target: Phaser.GameObjects.Sprite) => {
+            if (target && target.active) {
+                target.destroy();
+            }
+        });
+        scene.data.set(dataItem, []);
+    })
 }
 
 export function findFreeRandomPosition(
