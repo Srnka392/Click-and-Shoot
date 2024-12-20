@@ -34,8 +34,25 @@ function spawnTarget(scene: Phaser.Scene, texture: string): void {
             scene.data.set('score', updatedScore);
             scoreText.setText('Score: ' + updatedScore);
             
-            removeTargetFromActiveTargets(target, activeTargets, scene)
-            target.destroy();
+            removeTargetFromActiveTargets(target, activeTargets, scene);
+            scene.tweens.add({
+                targets: target,
+                scale: 0.3, // Zvýšenie mierky (1.5x väčšie)
+                duration: 50, // Doba animácie v ms
+                onComplete: () => {
+                    // Po zväčšení spustite animáciu zmiznutia
+                    scene.tweens.add({
+                        targets: target,
+                        alpha: 0, // Nastavenie priehľadnosti na 0
+                        duration: 100, // Doba animácie zmiznutia
+                        onComplete: () => {
+                            // Po dokončení odstráňte objekt
+                            target.destroy();
+                        }
+                    });
+                }
+            });
+            //target.destroy();
         } else {
             clearActiveTargets(scene);
             gameOver(scene);
