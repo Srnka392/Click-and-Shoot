@@ -88,6 +88,13 @@ function spawnTarget(scene: Phaser.Scene, texture: string): void {
         delay: timerDuration,
         callback: () => {
             if (!target.scene) return;
+            const correctTargetID = scene.data.get('correctTargetID');
+            const isCurrentlyCorrect = texture === `target${correctTargetID}`;
+            
+            if (isCurrentlyCorrect) {
+                gameOver(scene);
+            }
+
             removeTargetFromActiveTargets(target, activeTargets, scene, ["activeTargets", "activeTargetsTimer"])
 
             targetTimer.destroy();
